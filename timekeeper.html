@@ -1,0 +1,44 @@
+﻿<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>Time Keeper</title>
+<script type="text/javascript" src="./js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="./js/jquery.timer.js"></script>
+<script type="text/javascript" src="./js/timekeeper.js"></script>
+<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./css/timekeeper.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">Time Keeper</a>
+          <ul class="nav">
+            <li id="standby" class="active"><a href="#standby">Standby</a></li>
+            <li id="start"><a href="#start">Start</a></li>
+            <li id="pause"><a href="#pause">Pause</a></li>
+          </ul>
+		  <form class="pull-left" action="">
+			<input id="time1" type="text" style="width:5ex;">
+			<input id="time2" type="text" style="width:5ex;">
+			<input id="time3" type="text" style="width:5ex;">
+		  </form>
+          <ul class="nav second-nav">
+            <li id="soundcheck"><a href="#soundcheck">Sound Check</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+	<div id="time">
+		00:00
+	</div>
+	<div id="state">
+		STANDBY
+	</div>
+	<div id="info">
+		STANDBY
+	</div>
+</body>
+</html>
