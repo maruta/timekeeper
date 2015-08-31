@@ -52,6 +52,9 @@ $(function(){
 		$('#state').html('');
 		start_time = new Date((new Date()).getTime() - (time_inner-(new Date('2011/1/1 00:00:00'))));
 		last_time = null;
+		audio_chime1.load();
+		audio_chime2.load();
+		audio_chime3.load();
 	});
 
 	$('.nav #pause').click(function (){
