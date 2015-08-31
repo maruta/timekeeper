@@ -27,20 +27,20 @@ $(function(){
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
 
-	$('#info').html("定時進行にご協力ください")
+	$('#info').html("Click to edit this message.")
 	var audio_chime1,audio_chime2,audio_chime3;
 	audio_chime1 = new Audio("./wav/chime1.wav");
 	audio_chime2 = new Audio("./wav/chime2.wav");
 	audio_chime3 = new Audio("./wav/chime3.wav");
-	
+
 	$('.nav #standby').click(function (){
 		$('.nav li').removeClass('active');
-		$('.nav li#standby').addClass('active');		
+		$('.nav li#standby').addClass('active');
 		$('#state').html('STANDBY');
 		time_inner=(new Date('2011/1/1 00:00:00'));
 		show_time();
 	});
-	
+
 	var start_time=new Date();
 	var last_time;
 	$('.nav #start').click(function (){
@@ -48,7 +48,7 @@ $(function(){
 			return;
 		}
 		$('.nav li').removeClass('active');
-		$('.nav li#start').addClass('active');		
+		$('.nav li#start').addClass('active');
 		$('#state').html('');
 		start_time = new Date((new Date()).getTime() - (time_inner-(new Date('2011/1/1 00:00:00'))));
 		last_time = null;
@@ -86,7 +86,7 @@ $(function(){
 		audio_chime1.currentTime = 0;
 		audio_chime1.play();
 	});
-	
+
 	function show_time(){
 		var time_str= ('00' +  time_inner.getMinutes()   ).slice(-2) + ':'
 					+ ('00' +  time_inner.getSeconds() ).slice(-2);
@@ -100,18 +100,18 @@ $(function(){
 		time_inner=e;
 		show_time();
 	}
-	
+
 	$.timer(100,function(timer){
 			resize_display();
 			if($('.nav li#start').hasClass('active')){
 				update_time();
-				
-				var cur_time= new Date();				
+
+				var cur_time= new Date();
 				if(last_time != null){
 					var time1 = new Date(start_time.getTime()+((new Date('2011/1/1 00:'+$('#time1').val()))-(new Date('2011/1/1 00:00:00'))));
 					var time2 = new Date(start_time.getTime()+((new Date('2011/1/1 00:'+$('#time2').val()))-(new Date('2011/1/1 00:00:00'))));
 					var time3 = new Date(start_time.getTime()+((new Date('2011/1/1 00:'+$('#time3').val()))-(new Date('2011/1/1 00:00:00'))));
-					
+
 					if((last_time < time1 && time1 <= cur_time) || (last_time==time1 && cur_time==time1)){
 						audio_chime1.play();
 					}
@@ -119,7 +119,7 @@ $(function(){
 					if((last_time < time2 && time2 <= cur_time) || (last_time==time2 && cur_time==time2)){
 						audio_chime2.play();
 					}
-					
+
 					if((last_time < time3 && time3 <= cur_time) || (last_time==time3 && cur_time==time3)){
 						audio_chime3.play();
 					}
