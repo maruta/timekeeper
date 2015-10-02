@@ -56,12 +56,17 @@ $(function(){
 		+ '&t3=' + $('#time3').val()
 		+ '&m=' + encodeURIComponent($('#info').html());
 		$('#seturl').attr("href",hashstr);
-    history.replaceState(undefined, undefined, hashstr);
+		try{
+	    history.replaceState(undefined, undefined, hashstr);
+		}catch(e){
+		}
+
   };
 	$(window).on('hashchange', function() {
     parseHashParams();
   });
 	parseHashParams();
+	updateHash();
 	$('#time1,#time2,#time3,#info').change(function(){
 		updateHash();
 	});
@@ -78,7 +83,8 @@ $(function(){
 	audio_chime2 = new Audio("./wav/chime2.wav");
 	audio_chime3 = new Audio("./wav/chime3.wav");
 
-	$('.nav #standby').click(function (){
+	$('.nav #standby').click(function (event){
+		event.preventDefault();
 		$('.nav li').removeClass('active');
 		$('.nav li#standby').addClass('active');
 		$('#state').html('STANDBY');
@@ -88,7 +94,8 @@ $(function(){
 
 	var start_time=new Date();
 	var last_time;
-	$('.nav #start').click(function (){
+	$('.nav #start').click(function (event){
+		event.preventDefault();
 		if($('.nav li#start').hasClass('active')){
 			return;
 		}
@@ -102,7 +109,8 @@ $(function(){
 		audio_chime3.load();
 	});
 
-	$('.nav #pause').click(function (){
+	$('.nav #pause').click(function (event){
+		event.preventDefault();
 		if($('.nav li#standby').hasClass('active')){
 			return;
 		}
@@ -131,7 +139,8 @@ $(function(){
 	}
 	$(window).bind("resize", resize_display);
 
-	$('#soundcheck').click(function (){
+	$('#soundcheck').click(function (event){
+		event.preventDefault();
 		audio_chime1.load();
 		audio_chime2.load();
 		audio_chime3.load();
