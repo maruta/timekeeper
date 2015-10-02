@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2014 Ichiro Maruta
+Copyright (c) 2014-2015 Ichiro Maruta
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,53 @@ $(function(){
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
+	$('#info').html("Click to edit this message.");
+	function getHashParams() {
+    var hashParams = {};
+    var e,
+      a = /\+/g, // Regex for replacing addition symbol with a space
+      r = /([^&;=]+)=?([^&;]*)/g,
+      d = function(s) {
+        return decodeURIComponent(s.replace(a, " "));
+      },
+      q = window.location.hash.substring(1);
 
-	$('#info').html("Click to edit this message.")
+    while (e = r.exec(q))
+      hashParams[d(e[1])] = d(e[2]);
+    return hashParams;
+  }
+
+  function parseHashParams(){
+    params = getHashParams();
+    if(params.t1 !== undefined) $('#time1').val(params.t1);
+		if(params.t2 !== undefined) $('#time2').val(params.t2);
+		if(params.t3 !== undefined) $('#time3').val(params.t3);
+		if(params.m !== undefined) $('#info').html(params.m);
+  }
+
+	function updateHash() {
+    var hashstr = '#t1=' + $('#time1').val()
+		+ '&t2=' + $('#time2').val()
+		+ '&t3=' + $('#time3').val()
+		+ '&m=' + encodeURIComponent($('#info').html());
+		$('#seturl').attr("href",hashstr);
+    history.replaceState(undefined, undefined, hashstr);
+  };
+	$(window).on('hashchange', function() {
+    parseHashParams();
+  });
+	parseHashParams();
+	$('#time1,#time2,#time3,#info').change(function(){
+		updateHash();
+	});
+	var infoline = $('#info').html();
+	$('#info').blur(function() {
+	    if (infoline!=$(this).html()){
+	        infoline = $(this).html();
+					updateHash();
+	    }
+	});
+
 	var audio_chime1,audio_chime2,audio_chime3;
 	audio_chime1 = new Audio("./wav/chime1.wav");
 	audio_chime2 = new Audio("./wav/chime2.wav");
@@ -71,11 +116,12 @@ $(function(){
 	function resize_display() {
 		var height=$('body').height();
 		var width=$('body').width();
-		var theight=Math.min(height*3/5,width*2/5);
-		$('#time').css('top',theight/2+(height-theight)/2);
+		var theight=Math.min(height*3/5,width*1.95/5);
+		$('#time').css('top',(height-theight)/2*1.1);
 		$('#time').css('font-size',theight+'px');
+		$('#time').css('line-height',theight+'px');
 		var sheight=theight/6;
-		$('#state').css('top',height/2-theight/2-sheight/4);
+		$('#state').css('top',height/2-theight/2-sheight/2);
 		$('#state').css('font-size',sheight+'px');
 		$('#state').css('line-height',sheight+'px');
 		var iheight=sheight;
@@ -106,7 +152,7 @@ $(function(){
 		time_inner=e;
 		show_time();
 	}
-
+  $('[data-toggle="tooltip"]').tooltip();
 	$.timer(100,function(timer){
 			resize_display();
 			if($('.nav li#start').hasClass('active')){

@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2014 Ichiro Maruta
+Copyright (c) 2014-2015 Ichiro Maruta
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,12 +26,57 @@ html,body{
 	height:100%;
 	overflow: hidden;
 	background: black;
+	font-size:16px;
 }
 
-.container-fluid{
+/*.container-fluid{
 	height:100%;
+}*/
+.navbar-header {
+    float: left;
+}
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+    margin-left: -15px;
+}
+.navbar-nav {
+    float: left;
+    margin: 0;
+}
+.navbar-left {
+    float: left!important;
 }
 
+.navbar-nav>li {
+    float: left;
+}
+.navbar-nav>li>a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.navbar-form .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+}
+
+.navbar-form {
+    width: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+.navbar-right {
+    float: right!important;
+    margin-right: -15px;
+}
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header {
+    margin-right: 0;
+    margin-left: 0;
+}
 #display{
 	float: none;
 	margin: auto;
@@ -63,4 +108,13 @@ html,body{
 	width:100%;
 	position: absolute;
 	text-align: center;
+}
+.form-control{
+	background:#444;
+	color:rgba(255, 255, 255, 0.3);
+	border:1px solid #111;
+}
+.form-control:focus{
+	background:#eee;
+	color:#111;
 }

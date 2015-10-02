@@ -3,34 +3,39 @@
 <head>
 <meta charset="utf-8" />
 <title>Time Keeper</title>
-<script type="text/javascript" src="./js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.timer.js"></script>
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/timekeeper.js"></script>
-<link href="./css/bootstrap.min.css" rel="stylesheet">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/timekeeper.css" rel="stylesheet">
 
 </head>
 <body>
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <a class="brand" href="#">Time Keeper</a>
-          <ul class="nav">
-            <li id="standby" class="active"><a href="#standby">Standby</a></li>
-            <li id="start"><a href="#start">Start</a></li>
-            <li id="pause"><a href="#pause">Pause</a></li>
-          </ul>
-		  <form class="pull-left" action="">
-			<input id="time1" type="text" style="width:5ex;">
-			<input id="time2" type="text" style="width:5ex;">
-			<input id="time3" type="text" style="width:5ex;">
-		  </form>
-          <ul class="nav second-nav">
-            <li id="soundcheck"><a href="#soundcheck">Sound Check</a></li>
-          </ul>
-        </div>
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" id="seturl" data-toggle="tooltip" data-placement="bottom" title="Link to URL for this setting" href="#"><span class="glyphicon glyphicon-time" aria-hidden="true"></span> <span class="hidden-xs">Time Keeper</span></a>
       </div>
-    </div>
+
+        <ul class="nav navbar-nav">
+          <li id="standby" class="active"><a href="#standby"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span class="hidden-xs">Standby</span></a></li>
+          <li id="start"><a href="#start"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span class="hidden-xs">Start</span></a></li>
+          <li id="pause"><a href="#pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> <span class="hidden-xs">Pause</span></a></li>
+        </ul>
+        <form class="navbar-form navbar-left" action="">
+          <div class="form-group">
+            <input id="time1" class="form-control"  data-toggle="tooltip" data-placement="bottom" title="1st bell" type="text" style="width:5em;">
+      			<input id="time2" class="form-control" data-toggle="tooltip" data-placement="bottom" title="2nd bell" type="text" style="width:5em;">
+      			<input id="time3" class="form-control" data-toggle="tooltip" data-placement="bottom" title="3rd bell" type="text" style="width:5em;">
+          </div>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <li id="soundcheck"><a href="#soundcheck" data-toggle="tooltip" data-placement="bottom" title="Sound Check"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> <span class="hidden-xs hidden-sm">Sound Check</span></a></li>
+        </ul>
+    </div><!-- /.container-fluid -->
+  </nav>
 	<div id="time">
 		00:00
 	</div>
