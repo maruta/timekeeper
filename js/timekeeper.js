@@ -142,8 +142,6 @@ $(function(){
 	$('#soundcheck').click(function (event){
 		event.preventDefault();
 		audio_chime1.load();
-		audio_chime2.load();
-		audio_chime3.load();
 		audio_chime1.currentTime = 0;
 		audio_chime1.play();
 	});
