@@ -6,6 +6,8 @@ Access
 http://maruta.github.io/timekeeper/  
 or you can use local copy of this repository.
 
+**:bangbang: Be careful to turn off screen savers and automatic screen cut :bangbang:**
+
 ### How to Save the Settings?
 All current settings are included in URL.
 Just use bookmark to preserve your settings.
