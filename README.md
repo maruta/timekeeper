@@ -16,3 +16,5 @@ When you are using Chrome and running local copy of Time Keeper,
 Chrome does not permit to update the URL due to a security reason.
 Time Keeper logo on left-top is the link to the URL with the current setting, and can be used to get the URL.
  
+### License
+Timekeeper is open-sourced software licensed under The MIT License.
