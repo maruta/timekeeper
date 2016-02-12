@@ -18,3 +18,8 @@ Time Keeper logo on left-top is the link to the URL with the current setting, an
  
 ### License
 Timekeeper is open-sourced software licensed under The MIT License.
+
+This repository contains codes from
+ * [jQuery](https://jquery.org/license/) licensed under MIT License
+ * [jQuery Timer plugin](http://www.mattptr.net/) licensed under BSD License
+ * [Bootstrap](https://github.com/twbs/bootstrap/blob/master/LICENSE) licensed under MIT License
