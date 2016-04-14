@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 Ichiro Maruta
+Copyright (c) 2014-2016 Ichiro Maruta
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 $(function(){
-	var themecss='';
+	var loadedcss = '';
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
@@ -49,15 +49,15 @@ $(function(){
 		if(params.t2 !== undefined) $('#time2').val(params.t2);
 		if(params.t3 !== undefined) $('#time3').val(params.t3);
 		if(params.m !== undefined) $('#info').html(params.m);
-		if(themecss !== ''){
+		if(loadedcss !== ''){
 			location.reload();
 		}
-		if(params.th !== undefined && /^[a-zA-Z0-9]+$/.test(params.th)){
-			$('head').append('<link rel="stylesheet" type="text/css" href="theme/'+params.th+'.css">');
-			themecss=params.th;
+		if(params.th !== undefined && /^[a-zA-Z0-9\-]+$/.test(params.th)){
+			loadedcss=params.th;
 		}else{
-			themecss='';
+			loadedcss='default';
 		}
+		$('head').append('<link rel="stylesheet" type="text/css" href="theme/'+loadedcss+'.css">');
   }
 
 	function updateHash() {
@@ -65,8 +65,8 @@ $(function(){
 		+ '&t2=' + $('#time2').val()
 		+ '&t3=' + $('#time3').val()
 		+ '&m=' + encodeURIComponent($('#info').html());
-		if(themecss !== ''){
-			hashstr = hashstr + '&th=' + encodeURIComponent(themecss);
+		if(loadedcss !== 'default'){
+			hashstr = hashstr + '&th=' + encodeURIComponent(loadedcss);
 		}
 		$('#seturl').attr("href",hashstr);
 		try{
