@@ -16,6 +16,14 @@ When you are using Chrome and running local copy of Time Keeper,
 Chrome does not permit to update the URL due to a security reason.
 Time Keeper logo on left-top is the link to the URL with the current setting, and can be used to get the URL.
 
+### How to Customize Appearance?
+
+ * Edit timekeeper/theme/default.css
+ * By using class added to the body tag, the appearance can be changed according to the phase and state of the timer.
+ * Theme can be specified via URL as  
+   http://maruta.github.io/timekeeper/#th=example  
+   In this case, timekeeper/theme/example.css will be loaded in place of default.css.
+
 ### License
 Timekeeper is open-sourced software licensed under The MIT License.
 
