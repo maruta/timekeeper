@@ -20,13 +20,13 @@
 }
 .phase-2 #time{
 	/* style for displayed time can be changed in this way */
-	/* color: yellow;*/
+	color: yellow;
 }
 
 /* after 3rd chime */
 .phase-3{
 	/* styles for body element */
-	/* background-color: red; */
+	background-color: red;
 }
 
 

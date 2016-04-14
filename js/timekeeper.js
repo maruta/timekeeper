@@ -23,6 +23,7 @@ THE SOFTWARE.
 */
 
 $(function(){
+	var themecss='';
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
@@ -48,6 +49,15 @@ $(function(){
 		if(params.t2 !== undefined) $('#time2').val(params.t2);
 		if(params.t3 !== undefined) $('#time3').val(params.t3);
 		if(params.m !== undefined) $('#info').html(params.m);
+		if(themecss !== ''){
+			location.reload();
+		}
+		if(params.th !== undefined && /^[a-zA-Z0-9]+$/.test(params.th)){
+			$('head').append('<link rel="stylesheet" type="text/css" href="theme/'+params.th+'.css">');
+			themecss=params.th;
+		}else{
+			themecss='';
+		}
   }
 
 	function updateHash() {
@@ -55,21 +65,28 @@ $(function(){
 		+ '&t2=' + $('#time2').val()
 		+ '&t3=' + $('#time3').val()
 		+ '&m=' + encodeURIComponent($('#info').html());
+		if(themecss !== ''){
+			hashstr = hashstr + '&th=' + encodeURIComponent(themecss);
+		}
 		$('#seturl').attr("href",hashstr);
 		try{
 	    history.replaceState(undefined, undefined, hashstr);
 		}catch(e){
 		}
-
   };
+
 	$(window).on('hashchange', function() {
     parseHashParams();
+		updateHash();
   });
+
 	parseHashParams();
 	updateHash();
+
 	$('#time1,#time2,#time3,#info').change(function(){
 		updateHash();
 	});
+
 	var infoline = $('#info').html();
 	$('#info').blur(function() {
 	    if (infoline!=$(this).html()){
