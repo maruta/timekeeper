@@ -83,15 +83,32 @@ $(function(){
 	audio_chime2 = new Audio("./wav/chime2.wav");
 	audio_chime3 = new Audio("./wav/chime3.wav");
 
+	function changeStateClass(s) {
+		$('body').removeClass(function(index, className) {
+			return (className.match(/\bstate-\S+/g) || []).join(' ');
+		});
+		$('body').addClass('state-'+s);
+	};
+
+	function changePhaseClass(s) {
+		$('body').removeClass(function(index, className) {
+			return (className.match(/\bphase-\S+/g) || []).join(' ');
+		});
+		$('body').addClass('phase-'+s);
+	};
+
 	$('.nav #standby').click(function (event){
 		event.preventDefault();
 		$('.nav li').removeClass('active');
 		$('.nav li#standby').addClass('active');
 		$('#state').html('STANDBY');
+		changeStateClass('standby');
+		changePhaseClass('0');
 		time_inner=(new Date('2011/1/1 00:00:00'));
 		show_time();
 	});
-
+	changeStateClass('standby');
+	changePhaseClass('0');
 	var start_time=new Date();
 	var last_time;
 	$('.nav #start').click(function (event){
@@ -102,6 +119,7 @@ $(function(){
 		$('.nav li').removeClass('active');
 		$('.nav li#start').addClass('active');
 		$('#state').html('');
+		changeStateClass('start');
 		start_time = new Date((new Date()).getTime() - (time_inner-(new Date('2011/1/1 00:00:00'))));
 		last_time = null;
 		audio_chime1.load();
@@ -119,6 +137,7 @@ $(function(){
 		$('.nav li#pause').addClass('active');
 		update_time();
 		$('#state').html('PAUSED');
+		changeStateClass('paused');
 	});
 
 	function resize_display() {
@@ -172,16 +191,19 @@ $(function(){
 					var time3 = new Date(start_time.getTime()+((new Date('2011/1/1 00:'+$('#time3').val()))-(new Date('2011/1/1 00:00:00'))));
 
 					if((last_time < time1 && time1 <= cur_time) || (last_time==time1 && cur_time==time1)){
+						changePhaseClass('1');
 						audio_chime1.currentTime = 0;
 						audio_chime1.play();
 					}
 
 					if((last_time < time2 && time2 <= cur_time) || (last_time==time2 && cur_time==time2)){
+						changePhaseClass('2');
 						audio_chime2.currentTime = 0;
 						audio_chime2.play();
 					}
 
 					if((last_time < time3 && time3 <= cur_time) || (last_time==time3 && cur_time==time3)){
+						changePhaseClass('3');
 						audio_chime3.currentTime = 0;
 						audio_chime3.play();
 					}
