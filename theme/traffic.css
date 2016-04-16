@@ -1,0 +1,48 @@
+/*
+ class of the <body> element changes according to the phase and state of the timer.
+ By using these classes, you can change style according to the phase and state.
+*/
+
+
+/* before 1st chime */
+.phase-0{
+    /* styles for body element */
+    background-color: ForestGreen;
+}
+.phase-0 #time{
+}
+
+/* after 1st chime before 2nd chime */
+.phase-1{
+    /* styles for body element */
+    background-color: DarkOrange;
+}
+.phase-1 #time{
+}
+
+/* after 2nd chime before 3rd chime */
+.phase-2{
+    /* styles for body element */
+    background-color: FireBrick;
+}
+.phase-2 #time{
+}
+
+/* after 3rd chime */
+.phase-3{
+	/* styles for body element */
+	background-color: red;
+}
+.phase-3 #time{
+}
+
+
+/* classes for states */
+.state-stanby{
+}
+
+.state-start{
+}
+
+.state-paused{
+}
