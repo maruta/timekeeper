@@ -172,6 +172,16 @@ $(function(){
 		$('.nav #reset').blur();
 	});
 
+	$('.nav #fs').click(function (event){
+		event.preventDefault();
+		if(!$.fullscreen.isFullScreen()){
+			$('body').fullscreen();
+		}else{
+			$.fullscreen.exit();
+		}
+		$('.nav #fs').blur();
+	});
+
 	function resize_display() {
 		var height=$('body').height();
 		var width=$('body').width();
