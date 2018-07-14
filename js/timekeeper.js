@@ -157,6 +157,21 @@ $(function(){
 		changeStateClass('paused');
 	});
 
+	$('.nav #reset').click(function (event){
+		event.preventDefault();
+		if(!$('.nav li#start').hasClass('active')){
+			return;
+		}
+		changeStateClass('standby');
+		changePhaseClass('0');
+		time_inner=(new Date('2011/1/1 00:00:00'));
+		show_time();
+		changeStateClass('start');
+		start_time = new Date((new Date()).getTime() - (time_inner-(new Date('2011/1/1 00:00:00'))));
+		last_time = null;
+		$('.nav #reset').blur();
+	});
+
 	function resize_display() {
 		var height=$('body').height();
 		var width=$('body').width();
