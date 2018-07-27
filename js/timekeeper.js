@@ -221,7 +221,7 @@ $(function(){
 
 	function show_time(){
 		var time_str= "";
-		var time_color = "white";
+		var overtime = false;
 		if(countdown > 0){
 			var count_time = time_inner.getMinutes() * 60 + time_inner.getSeconds();
 			var time = new Date('2011/1/1 00:'+$('#time' + countdown).val());
@@ -236,14 +236,18 @@ $(function(){
 				var ms = [Math.floor(arest_time / 60), arest_time % 60];
 				time_str= ('00' +  ms[0]   ).slice(-2) + ':'
 							+ ('00' +  ms[1] ).slice(-2);	
-				time_color = rest_time >= 0 ? "white" : "red";
+				overtime = rest_time <= 0;
 			}
 		}else{
 			time_str= ('00' +  time_inner.getMinutes()   ).slice(-2) + ':'
 						+ ('00' +  time_inner.getSeconds() ).slice(-2);
 		}
-		$('#time').html(time_str)
-			.css("color", time_color);
+		$('#time').html(time_str);
+		if(overtime){
+			$('body').addClass('overtime');
+		}else{
+			$('body').removeClass('overtime');
+		}
 	}
 
 	var time_inner = new Date('2011/1/1 00:00:00');
