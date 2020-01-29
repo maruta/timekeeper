@@ -118,3 +118,11 @@ html,body{
 	background:#eee;
 	color:#111;
 }
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 15px;
+	text-align: right;
+}
