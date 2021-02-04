@@ -2,6 +2,7 @@
 The MIT License (MIT)
 
 Copyright (c) 2014-2016 Ichiro Maruta
+Copyright (c) 2018 TakamiChie
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -24,6 +25,7 @@ THE SOFTWARE.
 
 $(function(){
 	var loadedcss = '';
+	var countdown = 0;
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
@@ -49,6 +51,10 @@ $(function(){
 		if(params.t2 !== undefined) $('#time2').val(params.t2);
 		if(params.t3 !== undefined) $('#time3').val(params.t3);
 		if(params.m !== undefined) $('#info').html(params.m);
+		if(params.cd !== undefined){
+			countdown = parseInt(params.cd);
+			if(isNaN(countdown) || countdown > 3){ countdown = 0; }
+		}
 		if(loadedcss !== ''){
 			location.reload();
 		}
@@ -64,7 +70,8 @@ $(function(){
     var hashstr = '#t1=' + $('#time1').val()
 		+ '&t2=' + $('#time2').val()
 		+ '&t3=' + $('#time3').val()
-		+ '&m=' + encodeURIComponent($('#info').html());
+		+ '&m=' + encodeURIComponent($('#info').html())
+		+ '&cd=' + countdown;
 		if(loadedcss !== 'default'){
 			hashstr = hashstr + '&th=' + encodeURIComponent(loadedcss);
 		}
@@ -161,6 +168,37 @@ $(function(){
 		changeStateClass('paused');
 	});
 
+	$('.nav #reset').click(function (event){
+		event.preventDefault();
+		if(!$('.nav li#start').hasClass('active')){
+			return;
+		}
+		changeStateClass('standby');
+		changePhaseClass('0');
+		time_inner=(new Date('2011/1/1 00:00:00'));
+		show_time();
+		changeStateClass('start');
+		start_time = new Date((new Date()).getTime() - (time_inner-(new Date('2011/1/1 00:00:00'))));
+		last_time = null;
+		$('.nav #reset').blur();
+	});
+
+	$('.nav #fs').click(function (event){
+		event.preventDefault();
+		if(!$.fullscreen.isFullScreen()){
+			$('body').fullscreen();
+		}else{
+			$.fullscreen.exit();
+		}
+		$('.nav #fs').blur();
+	});
+
+	// change countdown method
+	$('#time').click(function (event){
+		countdown = (countdown + 1) % 4;
+		updateHash();
+	});
+
 	function resize_display() {
 		var height=$('body').height();
 		var width=$('body').width();
@@ -187,9 +225,34 @@ $(function(){
 	});
 
 	function show_time(){
-		var time_str= ('00' +  time_inner.getMinutes()   ).slice(-2) + ':'
-					+ ('00' +  time_inner.getSeconds() ).slice(-2);
+		var time_str= "";
+		var overtime = false;
+		if(countdown > 0){
+			var count_time = time_inner.getMinutes() * 60 + time_inner.getSeconds();
+			var time = new Date('2011/1/1 00:'+$('#time' + countdown).val());
+			var end_time = time.getMinutes() * 60 + time.getSeconds();
+			var rest_time = end_time - count_time;
+			if(isNaN(rest_time)){
+				// inputting?
+				time_str = "00:00";
+				time_color = "white";
+			}else{
+				var arest_time = Math.abs(rest_time);
+				var ms = [Math.floor(arest_time / 60), arest_time % 60];
+				time_str= ('00' +  ms[0]   ).slice(-2) + ':'
+							+ ('00' +  ms[1] ).slice(-2);	
+				overtime = rest_time <= 0;
+			}
+		}else{
+			time_str= ('00' +  time_inner.getMinutes()   ).slice(-2) + ':'
+						+ ('00' +  time_inner.getSeconds() ).slice(-2);
+		}
 		$('#time').html(time_str);
+		if(overtime){
+			$('body').addClass('overtime');
+		}else{
+			$('body').removeClass('overtime');
+		}
 	}
 
 	var time_inner = new Date('2011/1/1 00:00:00');

@@ -5,8 +5,16 @@
 <title>Time Keeper</title>
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.timer.js"></script>
+<script type="text/javascript" src="./js/jquery.fullscreen.min.js"></script>
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/timekeeper.js"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="manifest" href="manifest.json">
+<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#f2f2f2">
+<meta name="theme-color" content="#ffffff">
 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/timekeeper.css" rel="stylesheet">
 
@@ -23,6 +31,8 @@
           <li id="standby" class="active"><a href="#standby"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span> <span class="hidden-xs">Standby</span></a></li>
           <li id="start"><a href="#start"><span class="glyphicon glyphicon-play" aria-hidden="true"></span> <span class="hidden-xs">Start</span></a></li>
           <li id="pause"><a href="#pause"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span> <span class="hidden-xs">Pause</span></a></li>
+          <li id="reset"><a href="#reset"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> <span class="hidden-xs">Reset</span></a></li>
+          <li id="fs"><a href="#fullscreen"><span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span> <span class="hidden-xs">Fullscreen</span></a></li>
         </ul>
         <form class="navbar-form navbar-left" action="">
           <div class="form-group">
@@ -36,7 +46,7 @@
         </ul>
     </div><!-- /.container-fluid -->
   </nav>
-	<div id="time">
+	<div id="time" data-toggle="tooltip" title="Click to change timer type">
 		00:00
 	</div>
 	<div id="state">

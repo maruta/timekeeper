@@ -102,6 +102,10 @@ html,body{
 	text-align: center;
 }
 
+.overtime #time{
+	color: red;
+}
+
 #info{
 	font-weight: bold;
 	color: white;

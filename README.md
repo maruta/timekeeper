@@ -1,6 +1,8 @@
 # Time Keeper
 HTML5 and JavaScript based timer with notification chime for academic conference.
 
+![Screenshot](screenshot.png)
+
 ### How to Use?
 Access
 http://maruta.github.io/timekeeper/  
