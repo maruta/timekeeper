@@ -5,10 +5,12 @@
 <title>Time Keeper</title>
 <script type="text/javascript" src="./js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="./js/jquery.timer.js"></script>
+<script type="text/javascript" src="./js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/timekeeper.js"></script>
 <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="./css/timekeeper.css" rel="stylesheet">
+<link href="./css/jquery-ui.min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -31,7 +33,14 @@
       			<input id="time3" class="form-control" data-toggle="tooltip" data-placement="bottom" title="3rd bell" type="text" style="width:5em;">
           </div>
         </form>
+        <ul class="nav navbar-nav" style="padding-top:10px;">
+            
+        </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li style="padding-top:10px; margin-right:10px; width:100px;">
+            <div id="slider" class=""></div>
+            <span id="slidervalue" style="color:lightgray;"></span>
+          </li>
           <li id="soundcheck"><a href="#soundcheck" data-toggle="tooltip" data-placement="bottom" title="Sound Check"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span> <span class="hidden-xs hidden-sm">Sound Check</span></a></li>
         </ul>
     </div><!-- /.container-fluid -->

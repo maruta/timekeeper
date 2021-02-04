@@ -99,6 +99,25 @@ $(function(){
 	audio_chime1 = new Audio("./wav/chime1.wav");
 	audio_chime2 = new Audio("./wav/chime2.wav");
 	audio_chime3 = new Audio("./wav/chime3.wav");
+	
+	/* change volume when moved slider */
+	$( "#slider" ).slider({
+		max:1,
+		min:0,
+		value:1,
+		step:0.01,
+		slide: function( event, ui ) {
+		 $("#slidervalue").html("Volume："+ui.value);
+			audio_chime1.volume = ui.value;
+			audio_chime2.volume = ui.value;
+			audio_chime3.volume = ui.value;
+		},
+		create: function( event, ui ) {
+		 $("#slidervalue").html("Volume："+$(this).slider( "value" ));
+		 $("#slider").css('background', 'rgb(50,50,50)');
+		 $("#slider .ui-slider-handle").css('background', 'rgb(0,100,0)');
+		}
+	 });
 
 	function changeStateClass(s) {
 		$('body').removeClass(function(index, className) {

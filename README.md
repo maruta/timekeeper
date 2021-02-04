@@ -30,4 +30,5 @@ Timekeeper is open-sourced software licensed under The MIT License.
 This repository contains codes from
  * [jQuery](https://jquery.org/license/) licensed under MIT License
  * [jQuery Timer plugin](http://www.mattptr.net/) licensed under BSD License
+ * [jQuery UI](https://jqueryui.com/) licensed under MIT License
  * [Bootstrap](https://github.com/twbs/bootstrap/blob/master/LICENSE) licensed under MIT License
