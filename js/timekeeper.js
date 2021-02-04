@@ -150,6 +150,10 @@ $(function(){
 			return;
 		}
 
+		if($('.nav li#pause').hasClass('active')){
+			return;
+		}
+
 		$('.nav li').removeClass('active');
 		$('.nav li#pause').addClass('active');
 		update_time();
