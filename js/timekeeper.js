@@ -250,4 +250,25 @@ $(function () {
 			last_time = cur_time;
 		}
 	});
+
+	function obs_scene_change(name){
+		if(name.indexOf(':standby') != -1){
+			standby();
+		}
+		if(name.indexOf(':start') != -1){
+			start();
+		}
+		if(name.indexOf(':pause') != -1){
+			pause();
+		}
+	}
+
+	if(window.obsstudio){
+		window.obsstudio.getCurrentScene(function(scene) {
+			obs_scene_change(scene.name);
+		});
+		window.addEventListener('obsSceneChanged', function(event) {
+			obs_scene_change(event.detail.name);
+		})
+	}
 });
