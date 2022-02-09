@@ -49,7 +49,7 @@ $(function () {
 		if (params.t1 !== undefined) $('#time1').val(params.t1);
 		if (params.t2 !== undefined) $('#time2').val(params.t2);
 		if (params.t3 !== undefined) $('#time3').val(params.t3);
-		if (params.m !== undefined) $('#info').html(params.m);
+		if (params.m !== undefined) $('#info').text(decodeURIComponent(params.m));
 		if (loadedcss !== '') {
 			location.reload();
 		}
@@ -65,7 +65,7 @@ $(function () {
 		var hashstr = '#t1=' + $('#time1').val()
 			+ '&t2=' + $('#time2').val()
 			+ '&t3=' + $('#time3').val()
-			+ '&m=' + encodeURIComponent($('#info').html());
+			+ '&m=' + encodeURIComponent($('#info').text());
 		if (loadedcss !== 'default') {
 			hashstr = hashstr + '&th=' + encodeURIComponent(loadedcss);
 		}
@@ -88,10 +88,10 @@ $(function () {
 		updateHash();
 	});
 
-	var infoline = $('#info').html();
+	var infoline = $('#info').text();
 	$('#info').blur(function () {
-		if (infoline != $(this).html()) {
-			infoline = $(this).html();
+		if (infoline != $(this).text()) {
+			infoline = $(this).text();
 			updateHash();
 		}
 	});
