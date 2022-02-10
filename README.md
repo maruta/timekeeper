@@ -38,3 +38,4 @@ This repository contains codes from
  * [jQuery](https://jquery.org/license/) licensed under MIT License
  * [jQuery Timer plugin](http://www.mattptr.net/) licensed under BSD License
  * [Bootstrap](https://github.com/twbs/bootstrap/blob/master/LICENSE) licensed under MIT License
+ * [DOMPurify](https://github.com/cure53/DOMPurify) licensed under Apache-2.0 License

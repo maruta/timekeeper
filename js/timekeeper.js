@@ -49,7 +49,7 @@ $(function () {
 		if (params.t1 !== undefined) $('#time1').val(params.t1);
 		if (params.t2 !== undefined) $('#time2').val(params.t2);
 		if (params.t3 !== undefined) $('#time3').val(params.t3);
-		if (params.m !== undefined) $('#info').html(params.m);
+		if (params.m !== undefined) $('#info').html(DOMPurify.sanitize(params.m));
 		if (loadedcss !== '') {
 			location.reload();
 		}
