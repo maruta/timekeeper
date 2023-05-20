@@ -16,6 +16,11 @@ When you are using Chrome and running local copy of Time Keeper,
 Chrome does not permit to update the URL due to a security reason.
 Time Keeper logo on left-top is the link to the URL with the current setting, and can be used to get the URL.
 
+### Need a countdown timer?
+
+[Set negative initial and bell times.](http://maruta.github.io/timekeeper/#t0=-15:00&t1=-10:00&t2=-5:00&t3=0:00&m=Click%20to%20edit%20this%20message.
+)
+
 ### How to Customize Appearance?
 
  * Edit timekeeper/theme/default.css

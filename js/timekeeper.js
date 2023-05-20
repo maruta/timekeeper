@@ -25,8 +25,9 @@ THE SOFTWARE.
 $(function () {
 	let nletters = 5, last_nletters = 5;
 	let time_str = "00:00";
-	let time_inner = 0;	
+	let time_inner = 0;
 	var loadedcss = '';
+	$('#time0').val('0:00');
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
@@ -49,6 +50,7 @@ $(function () {
 
 	function parseHashParams() {
 		params = getHashParams();
+		if (params.t0 !== undefined) $('#time0').val(params.t0);
 		if (params.t1 !== undefined) $('#time1').val(params.t1);
 		if (params.t2 !== undefined) $('#time2').val(params.t2);
 		if (params.t3 !== undefined) $('#time3').val(params.t3);
@@ -65,7 +67,8 @@ $(function () {
 	}
 
 	function updateHash() {
-		var hashstr = '#t1=' + $('#time1').val()
+		var hashstr = '#t0=' + $('#time0').val()
+			+ '&t1=' + $('#time1').val()
 			+ '&t2=' + $('#time2').val()
 			+ '&t3=' + $('#time3').val()
 			+ '&m=' + encodeURIComponent($('#info').html());
@@ -87,7 +90,7 @@ $(function () {
 	parseHashParams();
 	updateHash();
 
-	$('#time1,#time2,#time3,#info').change(function () {
+	$('#time0,#time1,#time2,#time3,#info').change(function () {
 		updateHash();
 	});
 
@@ -124,7 +127,7 @@ $(function () {
 		$('#state').html('STANDBY');
 		changeStateClass('standby');
 		changePhaseClass('0');
-		time_inner = 0;
+		time_inner = parse_time($('#time0').val());
 		show_time();
 	}
 
@@ -148,8 +151,7 @@ $(function () {
 		standby();
 	});
 
-	changeStateClass('standby');
-	changePhaseClass('0');
+	standby();
 	var start_time = new Date();
 	var last_time;
 
@@ -215,13 +217,13 @@ $(function () {
 
 	function format_time(t) {
 		if (t < 0) {
-			return '−' + format_time(-t);
+			return '−' + format_time(-t + 999);
 		}
 		var h = Math.floor(t / 3600000);
 		var m = Math.floor((t - h * 3600000) / 60000);
 		var s = Math.floor((t - h * 3600000 - m * 60000) / 1000);
 		var ms = Math.floor((t - h * 3600000 - m * 60000 - s * 1000) / 10);
-		return ((h>0) ? (h+'∶'):'')+ ('00' + m).slice(-2) + '∶' + ('00' + s).slice(-2);
+		return ((h > 0) ? (h + '∶') : '') + ('00' + m).slice(-2) + '∶' + ('00' + s).slice(-2);
 	}
 	function show_time() {
 		time_str = format_time(time_inner);
@@ -250,19 +252,19 @@ $(function () {
 	}
 
 	function parse_time(tstr) {
-		if(tstr[0] == '−'){
-			return -parse_time(tstr.slice(1));
+		if (tstr.charAt(0) === '-' || tstr.charAt(0) === '−') {
+			return (-parse_time(tstr.slice(1)));
 		}
 		const parts = tstr.split(/[:∶]/).reverse();
 		let time = 0;
-	
+
 		// seconds
 		if (parts[0]) time += parseInt(parts[0], 10) * 1000;
 		// minutes
 		if (parts[1]) time += parseInt(parts[1], 10) * 60 * 1000;
 		// hours
 		if (parts[2]) time += parseInt(parts[2], 10) * 60 * 60 * 1000;
-	
+
 		return time;
 	}
 
