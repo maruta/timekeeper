@@ -3,6 +3,7 @@
     "short_name": "TimeKeeper",
     "theme_color": "#000",
     "display": "fullscreen",
+    "orientation": "landscape-primary",
     "icons": [
         {
             "src": "/icon/favicon-192.png",
