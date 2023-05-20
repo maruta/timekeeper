@@ -1,7 +1,6 @@
 {
     "name": "Time Keeper",
     "short_name": "TimeKeeper",
-    "start_url": ".",
     "theme_color": "#000",
     "display": "fullscreen",
     "orientation": "landscape-primary",
