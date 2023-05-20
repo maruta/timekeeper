@@ -1,7 +1,7 @@
 ﻿/*
 The MIT License (MIT)
 
-Copyright (c) 2014-2021 Ichiro Maruta
+Copyright (c) 2014-2023 Ichiro Maruta
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,9 @@ THE SOFTWARE.
 */
 
 $(function () {
+	let nletters = 5, last_nletters = 5;
+	let time_str = "00:00";
+	let time_inner = 0;	
 	var loadedcss = '';
 	$('#time1').val('15:00');
 	$('#time2').val('20:00');
@@ -121,7 +124,7 @@ $(function () {
 		$('#state').html('STANDBY');
 		changeStateClass('standby');
 		changePhaseClass('0');
-		time_inner = (new Date('2011/1/1 00:00:00'));
+		time_inner = 0;
 		show_time();
 	}
 
@@ -133,7 +136,7 @@ $(function () {
 		$('.nav li#start').addClass('active');
 		$('#state').html('');
 		changeStateClass('start');
-		start_time = new Date((new Date()).getTime() - (time_inner - (new Date('2011/1/1 00:00:00'))));
+		start_time = new Date((new Date()).getTime() - time_inner);
 		last_time = null;
 		audio_chime1.load();
 		audio_chime2.load();
@@ -153,6 +156,14 @@ $(function () {
 	$('.nav #start').click(function (event) {
 		event.preventDefault();
 		start();
+	});
+
+	$('#time').click(function (event) {
+		event.preventDefault();
+		let new_time = prompt('Force the time to', time_str);
+		if (new_time !== null) {
+			set_time(new_time);
+		}
 	});
 
 	function pause() {
@@ -179,7 +190,7 @@ $(function () {
 	function resize_display() {
 		var height = $('body').height();
 		var width = $('body').width();
-		var theight = Math.min(height * 3 / 5, width * 1.95 / 5);
+		var theight = Math.min(height * 3 / 5, width * 1.95 / nletters);
 		$('#time').css('top', (height - theight) / 2 * 1.1);
 		$('#time').css('font-size', theight + 'px');
 		$('#time').css('line-height', theight + 'px');
@@ -193,6 +204,7 @@ $(function () {
 		$('#info').css('line-height', iheight + 'px');
 	}
 	$(window).bind("resize", resize_display);
+	$(window).bind("orientationchange", resize_display);
 
 	$('#soundcheck').click(function (event) {
 		event.preventDefault();
@@ -201,19 +213,57 @@ $(function () {
 		audio_chime1.play();
 	});
 
+	function format_time(t) {
+		if (t < 0) {
+			return '−' + format_time(-t);
+		}
+		var h = Math.floor(t / 3600000);
+		var m = Math.floor((t - h * 3600000) / 60000);
+		var s = Math.floor((t - h * 3600000 - m * 60000) / 1000);
+		var ms = Math.floor((t - h * 3600000 - m * 60000 - s * 1000) / 10);
+		return ((h>0) ? (h+'∶'):'')+ ('00' + m).slice(-2) + '∶' + ('00' + s).slice(-2);
+	}
 	function show_time() {
-		var time_str = ('00' + time_inner.getMinutes()).slice(-2) + ':'
-			+ ('00' + time_inner.getSeconds()).slice(-2);
+		time_str = format_time(time_inner);
+		nletters = time_str.length;
+		if (nletters != last_nletters) {
+			resize_display();
+			last_nletters = nletters;
+		}
 		$('#time').html(time_str);
 	}
 
-	var time_inner = new Date('2011/1/1 00:00:00');
+	function set_time(t_str) {
+		start_time = new Date((new Date()).getTime() - parse_time(t_str));
+		update_time();
+	}
+
+	window.set_time = set_time;
+
+
 
 	function update_time() {
 		var cur_time = new Date();
-		var e = new Date((new Date('2011/1/1 00:00:00')).getTime() + (cur_time - start_time));
+		var e = cur_time - start_time;
 		time_inner = e;
 		show_time();
+	}
+
+	function parse_time(tstr) {
+		if(tstr[0] == '−'){
+			return -parse_time(tstr.slice(1));
+		}
+		const parts = tstr.split(/[:∶]/).reverse();
+		let time = 0;
+	
+		// seconds
+		if (parts[0]) time += parseInt(parts[0], 10) * 1000;
+		// minutes
+		if (parts[1]) time += parseInt(parts[1], 10) * 60 * 1000;
+		// hours
+		if (parts[2]) time += parseInt(parts[2], 10) * 60 * 60 * 1000;
+	
+		return time;
 	}
 
 	$('[data-toggle="tooltip"]').tooltip();
@@ -224,26 +274,29 @@ $(function () {
 
 			var cur_time = new Date();
 			if (last_time != null) {
-				var time1 = new Date(start_time.getTime() + ((new Date('2011/1/1 00:' + $('#time1').val())) - (new Date('2011/1/1 00:00:00'))));
-				var time2 = new Date(start_time.getTime() + ((new Date('2011/1/1 00:' + $('#time2').val())) - (new Date('2011/1/1 00:00:00'))));
-				var time3 = new Date(start_time.getTime() + ((new Date('2011/1/1 00:' + $('#time3').val())) - (new Date('2011/1/1 00:00:00'))));
+				var time1 = new Date(start_time.getTime() + parse_time($('#time1').val()));
+				var time2 = new Date(start_time.getTime() + parse_time($('#time2').val()));
+				var time3 = new Date(start_time.getTime() + parse_time($('#time3').val()));
 
 				if ((last_time < time1 && time1 <= cur_time) || (last_time == time1 && cur_time == time1)) {
 					changePhaseClass('1');
 					audio_chime1.currentTime = 0;
 					audio_chime1.play();
+					console.log('chime1');
 				}
 
 				if ((last_time < time2 && time2 <= cur_time) || (last_time == time2 && cur_time == time2)) {
 					changePhaseClass('2');
 					audio_chime2.currentTime = 0;
 					audio_chime2.play();
+					console.log('chime2');
 				}
 
 				if ((last_time < time3 && time3 <= cur_time) || (last_time == time3 && cur_time == time3)) {
 					changePhaseClass('3');
 					audio_chime3.currentTime = 0;
 					audio_chime3.play();
+					console.log('chime3');
 				}
 
 			}
@@ -251,24 +304,25 @@ $(function () {
 		}
 	});
 
-	function obs_scene_change(name){
-		if(name.indexOf(':standby') != -1){
+	function obs_scene_change(name) {
+		if (name.indexOf(':standby') != -1) {
 			standby();
 		}
-		if(name.indexOf(':start') != -1){
+		if (name.indexOf(':start') != -1) {
 			start();
 		}
-		if(name.indexOf(':pause') != -1){
+		if (name.indexOf(':pause') != -1) {
 			pause();
 		}
 	}
 
-	if(window.obsstudio){
-		window.obsstudio.getCurrentScene(function(scene) {
+	if (window.obsstudio) {
+		window.obsstudio.getCurrentScene(function (scene) {
 			obs_scene_change(scene.name);
 		});
-		window.addEventListener('obsSceneChanged', function(event) {
+		window.addEventListener('obsSceneChanged', function (event) {
 			obs_scene_change(event.detail.name);
 		})
 	}
+	show_time();
 });
