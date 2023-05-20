@@ -1,17 +1,18 @@
 {
     "name": "Time Keeper",
     "short_name": "TimeKeeper",
+    "start_url": ".",
     "theme_color": "#000",
     "display": "fullscreen",
     "orientation": "landscape-primary",
     "icons": [
         {
-            "src": "/icon/favicon-192.png",
+            "src": "./icon/favicon-192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/icon/favicon-512.png",
+            "src": "./icon/favicon-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
