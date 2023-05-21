@@ -160,7 +160,7 @@ $(function () {
 		start();
 	});
 
-	$('#time').click(function (event) {
+	$('#time').dblclick(function (event) {
 		event.preventDefault();
 		let new_time = prompt('Force the time to', time_str);
 		if (new_time !== null) {
@@ -223,7 +223,7 @@ $(function () {
 		var m = Math.floor((t - h * 3600000) / 60000);
 		var s = Math.floor((t - h * 3600000 - m * 60000) / 1000);
 		var ms = Math.floor((t - h * 3600000 - m * 60000 - s * 1000) / 10);
-		return ((h > 0) ? (h + '∶') : '') + ('00' + m).slice(-2) + '∶' + ('00' + s).slice(-2);
+		return ((h > 0) ? (h + ':') : '') + ('00' + m).slice(-2) + ':' + ('00' + s).slice(-2);
 	}
 	function show_time() {
 		time_str = format_time(time_inner);

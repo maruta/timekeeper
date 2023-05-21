@@ -40,7 +40,13 @@ https://user-images.githubusercontent.com/486675/118618497-a43d7780-b7fe-11eb-86
 Timekeeper is open-sourced software licensed under The MIT License.
 
 This repository contains codes from
+
  * [jQuery](https://jquery.org/license/) licensed under MIT License
  * [jQuery Timer plugin](http://www.mattptr.net/) licensed under BSD License
  * [Bootstrap](https://github.com/twbs/bootstrap/blob/master/LICENSE) licensed under MIT License
  * [DOMPurify](https://github.com/cure53/DOMPurify) licensed under Apache-2.0 License
+
+and
+
+ * A modified version of [Roboto](https://fonts.google.com/specimen/Roboto/about) font
+    * In this version, the "colon" is replaced with a "fancy colon" to be displayed in the proper position in the time display. Roboto is licensed under the Apache-2.0 License. Our modifications don't in any way alter the existing license of the font. 
