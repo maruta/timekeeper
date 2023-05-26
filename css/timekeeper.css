@@ -126,3 +126,7 @@ html,body{
 	background:#eee;
 	color:#111;
 }
+
+input:invalid {
+	border: red solid 2px;
+}
